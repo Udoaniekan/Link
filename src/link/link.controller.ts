@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { LinkService } from './link.service';
 import { LinkDto } from 'src/dto/link.dto';
 
@@ -11,10 +11,10 @@ export class LinkController {
         return await this.linkService.addlink(payload)
     }
 
-     @Get(':name')
-    async findName(@Param('name') name: string) {
-        return await this.linkService.findOneByName(name);
-    }
+    //  @Get(':name')
+    // async findName(@Param('name') name: string) {
+    //     return await this.linkService.findOneByName(name);
+    // }
 
     @Get(':id')
     async findId(@Param('id') id: number) {
@@ -25,5 +25,15 @@ export class LinkController {
     @Get()
     async findAllLink(){
         return await this.linkService.findAll()
+    }
+
+    @Put(':id')
+    async updateLinkByName(@Param('id')id, @Body() payload){
+        return await this.linkService.updateLink(id, payload)
+    }
+
+    @Delete(':id')
+    async deleteByName(@Param('id')id:number){
+        return await this.linkService.deleteLink(id)
     }
 }
